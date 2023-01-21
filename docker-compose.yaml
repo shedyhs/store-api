@@ -1,0 +1,40 @@
+version: '3.8'
+
+# volumes:
+#   postgres-vol:
+#   # mongodb-vol:
+
+services:
+
+  # postgres:
+  #   image: postgres
+  #   environment:
+  #     POSTGRES_USER: postgres
+  #     POSTGRES_PASSWORD: docker
+  #     POSTGRES_DB: clean_arch_postgres
+  #   ports:
+  #     - 5432:5432
+  #   volumes:
+  #     - postgres-vol:/var/lib/postgresql/data
+
+  app:
+    container_name: 'app'
+    build: .
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/store-api
+
+  # mongo:
+  #   image: mongo
+  #   environment:
+  #     MONGO_INITDB_ROOT_USERNAME: mongo
+  #     MONGO_INITDB_ROOT_PASSWORD: docker
+  #     MONGO_INITDB_DATABASE: clean_arch_mongo
+  #   ports:
+  #     - 27017:27017
+  #   volumes:
+  #     - mongodb-vol:/var/lib/mongodb/data
+
+# networks:
+#   - nodenet
