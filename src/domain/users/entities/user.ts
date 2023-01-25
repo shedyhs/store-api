@@ -1,5 +1,5 @@
 import { Entity } from '@/shared/entity';
-import { EntityError } from '@/shared/entity-error';
+import { EntityError } from '@/shared/errors/entity-error';
 import { PartialObject } from 'lodash';
 import { Email } from './value-objects/email.vo';
 import { Password } from './value-objects/password.vo';

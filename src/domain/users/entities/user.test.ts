@@ -1,4 +1,5 @@
-import { EntityError } from '@/shared/entity-error';
+import { EntityError } from '@/shared/errors/entity-error';
+import { describe, test, expect } from 'vitest';
 import { User } from './user';
 
 describe('User entity unit test', () => {

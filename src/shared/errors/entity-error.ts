@@ -1,4 +1,4 @@
-type TypeEntityError = {
+export type TypeEntityError = {
   field: string;
   messages: string[];
 };

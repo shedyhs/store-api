@@ -1,11 +1,8 @@
-type ValueObjectError = {
-  field: string;
-  messages: string[];
-};
+import { TypeEntityError } from './errors/entity-error';
 
 export abstract class ValueObject<T> {
   private _value: T;
-  protected _errors: ValueObjectError;
+  protected _errors: TypeEntityError;
 
   constructor(value: T, field: string) {
     this._value = value;
@@ -16,7 +13,7 @@ export abstract class ValueObject<T> {
     return this._value;
   }
 
-  get errors(): ValueObjectError {
+  get errors(): TypeEntityError {
     return this._errors;
   }
 

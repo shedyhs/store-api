@@ -1,3 +1,4 @@
+import { describe, expect, test } from 'vitest';
 import { Password } from './password.vo';
 
 describe('Password vo unit test', () => {
