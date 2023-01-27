@@ -1,3 +1,4 @@
+import { describe, expect, test } from 'vitest';
 import { Email } from './email.vo';
 
 describe('Email vo unit test ', () => {

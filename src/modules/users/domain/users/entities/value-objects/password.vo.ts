@@ -1,6 +1,6 @@
+import { ValueObject } from '@/shared/domain/value-object';
 import bcryptjs from 'bcryptjs';
 import validator from 'validator';
-import { ValueObject } from '@/shared/value-object';
 
 export class Password extends ValueObject<string> {
   private salts = 8;

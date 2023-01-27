@@ -1,4 +1,4 @@
-import { ValueObject } from '@/shared/value-object';
+import { ValueObject } from '@/shared/domain/value-object';
 import validator from 'validator';
 
 export class Email extends ValueObject<string> {

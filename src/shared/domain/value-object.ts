@@ -1,4 +1,4 @@
-import { TypeEntityError } from './errors/entity-error';
+import { TypeEntityError } from '../errors/entity-error';
 
 export abstract class ValueObject<T> {
   private _value: T;
