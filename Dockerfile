@@ -15,4 +15,4 @@ RUN curl -o- -L https://yarnpkg.com/install.sh | bash
 
 EXPOSE 3000
 
-CMD ["sh", "-c", "yarn install && tail -f /dev/null"]
+CMD ["sh", "-c", "yarn && tail -f /dev/null"]

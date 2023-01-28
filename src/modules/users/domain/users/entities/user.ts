@@ -2,15 +2,19 @@ import { IOutputUserDTO } from '@/modules/users/application/users/usecases/dtos/
 import { Entity } from '@/shared/domain/entity';
 import { EntityError } from '@/shared/errors/entity-error';
 import { PartialObject } from 'lodash';
+import { UserDAO } from '../dao/user.dao';
 import { Email } from './value-objects/email.vo';
 import { Password } from './value-objects/password.vo';
 
 export type UserProperties = {
   email: string;
   username: string;
-  password: string;
+  password: Password;
   createdAt?: Date;
   updatedAt?: Date;
+};
+type UpdateUserProperties = PartialObject<Omit<UserProperties, 'password'>> & {
+  password?: string;
 };
 
 export class User extends Entity {
@@ -23,7 +27,7 @@ export class User extends Entity {
     super(id);
     this._email = new Email(props.email);
     this._username = props.username;
-    this._password = new Password(props.password);
+    this._password = props.password;
     this._createdAt = props.createdAt ?? new Date();
     this._updatedAt = props.updatedAt ?? new Date();
     this.validate();
@@ -33,6 +37,9 @@ export class User extends Entity {
     if (this._email.hasErrors()) {
       this.addError(this._email.errors);
     }
+    if (!this._username) {
+      this.addError({ field: 'username', messages: ['Required at username'] });
+    }
     if (this._password.hasErrors()) {
       this.addError(this._password.errors);
     }
@@ -41,7 +48,7 @@ export class User extends Entity {
     }
   }
 
-  update(props: PartialObject<UserProperties>) {
+  update(props: UpdateUserProperties) {
     if (props.username) {
       this._username = props.username;
     }
@@ -54,7 +61,7 @@ export class User extends Entity {
     this._updatedAt = new Date();
   }
 
-  public toOutput(): IOutputUserDTO {
+  toOutput(): IOutputUserDTO {
     return {
       id: this.id,
       email: this.email,
@@ -64,15 +71,36 @@ export class User extends Entity {
     };
   }
 
-  public toRepository() {
+  toDAO(): UserDAO {
     return {
       id: this.id,
       email: this.email,
       username: this.username,
-      password: this.password,
+      password: this.password.value,
       created_at: this.createdAt,
       updated_at: this.updatedAt,
     };
+  }
+
+  public static toApplication(user: UserDAO): User {
+    return new User(
+      {
+        email: user.email,
+        password: new Password(user.password, true),
+        username: user.username,
+        createdAt: user.created_at,
+        updatedAt: user.updated_at,
+      },
+      user.id,
+    );
+  }
+
+  public static toDomain(input: UserProperties): User {
+    return new User({
+      email: input.email,
+      username: input.username,
+      password: input.password,
+    });
   }
 
   get email(): string {
