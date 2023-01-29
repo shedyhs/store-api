@@ -1,6 +1,3 @@
-export interface IUpdateUserDTO {
-  id: string;
-  email?: string;
-  username?: string;
-  password?: string;
-}
+import { UpdateUserProperties } from '@/modules/users/domain/users/entities/user';
+
+export type IUpdateUserDTO = UpdateUserProperties;
