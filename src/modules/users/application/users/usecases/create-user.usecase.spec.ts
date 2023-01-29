@@ -1,7 +1,7 @@
-import { User } from '@/modules/users/domain/users/entities/user';
-import { Password } from '@/modules/users/domain/users/entities/value-objects/password.vo';
+import { MockUserDAO } from '@/modules/users/domain/mocks/user.dao.mock';
 import { IUsersRepository } from '@/modules/users/infra/repositories/interfaces/users-repository.interface';
 import { MockUsersRepository } from '@/modules/users/infra/repositories/mock/users-repository.mock';
+import { ApplicationErrors } from '@/shared/errors/application-error';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { CreateUserUseCase } from './create-user.usecase';
 import { ICreateUserUseCase } from './interfaces/create-user.usecase.interface';
@@ -31,20 +31,14 @@ describe('Create User UseCase Unit Test', () => {
   });
 
   it('should not be able to create a user with already existent email', async () => {
-    await usersRepository.create(
-      new User({
-        email: 'shedyhs@gmail.com',
-        password: new Password('Pa$$w0rd'),
-        username: 'shedyhs',
-      }),
-    );
+    await usersRepository.create(MockUserDAO);
 
     expect(
       sut.execute({
-        email: 'shedyhs@gmail.com',
+        email: MockUserDAO.email,
         password: 'Pa$$w0rd',
         username: 'shedyhs',
       }),
-    );
+    ).rejects.toThrow(ApplicationErrors.ConflictError);
   });
 });

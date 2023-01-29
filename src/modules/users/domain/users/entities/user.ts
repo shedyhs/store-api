@@ -6,16 +6,24 @@ import { UserDAO } from '../dao/user.dao';
 import { Email } from './value-objects/email.vo';
 import { Password } from './value-objects/password.vo';
 
-export type UserProperties = {
+export interface UserProperties {
   email: string;
   username: string;
   password: Password;
   createdAt?: Date;
   updatedAt?: Date;
-};
-type UpdateUserProperties = PartialObject<Omit<UserProperties, 'password'>> & {
+}
+
+export interface DomainUserProperties
+  extends Omit<UserProperties, 'createdAt' | 'updatedAt' | 'password'> {
+  id?: string;
+  password: string;
+}
+
+interface UpdateUserProperties
+  extends PartialObject<Omit<UserProperties, 'password'>> {
   password?: string;
-};
+}
 
 export class User extends Entity {
   private _email: Email;
@@ -82,7 +90,7 @@ export class User extends Entity {
     };
   }
 
-  public static toApplication(user: UserDAO): User {
+  public static fromDAO(user: UserDAO): User {
     return new User(
       {
         email: user.email,
@@ -95,12 +103,15 @@ export class User extends Entity {
     );
   }
 
-  public static toDomain(input: UserProperties): User {
-    return new User({
-      email: input.email,
-      username: input.username,
-      password: input.password,
-    });
+  public static fromDomain(input: DomainUserProperties): User {
+    return new User(
+      {
+        email: input.email,
+        username: input.username,
+        password: new Password(input.password),
+      },
+      input.id,
+    );
   }
 
   get email(): string {

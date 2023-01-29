@@ -1,3 +1,4 @@
+import { User } from '@/modules/users/domain/users/entities/user';
 import { IUsersRepository } from '@/modules/users/infra/repositories/interfaces/users-repository.interface';
 import { ApplicationErrors } from '@/shared/errors/application-error';
 import { IOutputUserDTO } from './dtos/output-user.dto';
@@ -11,8 +12,9 @@ export class UpdateUserUseCase implements IUpdateUserUseCase {
     if (!foundUser) {
       throw new ApplicationErrors.NotFoundError('user not found');
     }
-    foundUser.update(input);
-    await this.usersRepository.update(foundUser);
-    return foundUser.toOutput();
+    const user = User.fromDAO(foundUser);
+    user.update(input);
+    await this.usersRepository.update(user.toDAO());
+    return user.toOutput();
   }
 }

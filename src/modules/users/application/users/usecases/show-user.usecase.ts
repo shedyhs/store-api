@@ -1,3 +1,4 @@
+import { User } from '@/modules/users/domain/users/entities/user';
 import { IUsersRepository } from '@/modules/users/infra/repositories/interfaces/users-repository.interface';
 import { ApplicationErrors } from '@/shared/errors/application-error';
 import { IOutputUserDTO } from './dtos/output-user.dto';
@@ -12,6 +13,7 @@ export class ShowUserUseCase implements IShowUserUseCase {
     if (!foundUser) {
       throw new ApplicationErrors.NotFoundError('user not found');
     }
-    return foundUser.toOutput();
+    const user = User.fromDAO(foundUser);
+    return user.toOutput();
   }
 }

@@ -11,10 +11,11 @@ export class CreateUserController extends BaseController {
   }
 
   async perform(request: HttpRequest): Promise<HttpResponse> {
-    const { email, password, id } = request.body;
+    const { email, username, password, id } = request.body;
 
     const result = await this.createUserUseCase.execute({
       email,
+      username,
       password,
       id,
     });
@@ -35,6 +36,7 @@ export class CreateUserController extends BaseController {
       body: z.object({
         id: z.string().optional(),
         email: z.string(),
+        username: z.string(),
         password: z.string(),
       }),
     });

@@ -7,16 +7,16 @@ import { ICreateUserUseCase } from './interfaces/create-user.usecase.interface';
 
 export class CreateUserUseCase implements ICreateUserUseCase {
   constructor(private readonly usersRepository: IUsersRepository) {}
+
   async execute(input: ICreateUserDTO): Promise<IOutputUserDTO> {
+    const user = User.fromDomain(input);
     const alreadyExistsEmail = await this.usersRepository.findByEmail(
-      input.email,
+      user.email,
     );
     if (alreadyExistsEmail) {
       throw new ApplicationErrors.ConflictError('email already in use');
     }
-
-    const user = User.toDomain(input);
-    await this.usersRepository.create(user);
+    await this.usersRepository.create(user.toDAO());
     return user.toOutput();
   }
 }

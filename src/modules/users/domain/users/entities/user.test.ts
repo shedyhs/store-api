@@ -39,7 +39,7 @@ describe('User entity unit test', () => {
     ];
 
     invalidPack.forEach((data) => {
-      expect(() => new User(data)).toThrow(EntityError);
+      expect(() => User.fromDomain(data)).toThrow(EntityError);
     });
   });
 
