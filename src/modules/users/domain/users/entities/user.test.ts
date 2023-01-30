@@ -1,5 +1,7 @@
 import { EntityError } from '@/shared/errors/entity-error';
 import { describe, test, expect } from 'vitest';
+import { MockUserDAO } from '../../mocks/user.dao.mock';
+import { MockUserDomain } from '../../mocks/user.domain.mock';
 import { User } from './user';
 import { Password } from './value-objects/password.vo';
 
@@ -36,6 +38,7 @@ describe('User entity unit test', () => {
     const invalidPack = [
       { email: 'email@mail.com', username: 'shedyhs', password: 'Passw0rd' },
       { email: 'emailmail.com', username: 'shedyhs', password: 'Pa$$w0rd' },
+      { email: 'emailmail.com', username: '', password: 'Pa$$w0rd' },
     ];
 
     invalidPack.forEach((data) => {
@@ -57,5 +60,38 @@ describe('User entity unit test', () => {
     expect(user.email).toBe('another@email.com');
     expect(user.username).toBe('another-username');
     expect(user.password.compare('Newpa$$w0rd'));
+  });
+
+  test('fromDAO', () => {
+    const user = User.fromDAO(MockUserDAO);
+    expect(user).toBeInstanceOf(User);
+    expect(user.id).toBe(MockUserDAO.id);
+    expect(user.email).toBe(MockUserDAO.email);
+    expect(user.username).toBe(MockUserDAO.username);
+    expect(user.password.value).toBe(MockUserDAO.password);
+    expect(user.createdAt).toBe(MockUserDAO.created_at);
+    expect(user.updatedAt).toBe(MockUserDAO.updated_at);
+  });
+
+  test('toDAO', () => {
+    const user = User.fromDomain(MockUserDomain);
+    const userDAO = user.toDAO();
+    expect(userDAO.id).toBe(user.id);
+    expect(userDAO.email).toBe(user.email);
+    expect(userDAO.username).toBe(user.username);
+    expect(userDAO.password).toBe(user.password.value);
+    expect(userDAO.created_at).toBe(user.createdAt);
+    expect(userDAO.updated_at).toBe(user.updatedAt);
+  });
+
+  test('toDAO', () => {
+    const user = User.fromDomain(MockUserDomain);
+    const userOutput = user.toOutput();
+    expect(userOutput.id).toBe(user.id);
+    expect(userOutput.email).toBe(user.email);
+    expect(userOutput.username).toBe(user.username);
+    expect(userOutput).not.toHaveProperty('password');
+    expect(userOutput.createdAt).toBe(user.createdAt);
+    expect(userOutput.updatedAt).toBe(user.updatedAt);
   });
 });

@@ -22,6 +22,7 @@ export class ResponsePresenter {
       params: request.params,
       query: request.query,
       body: request.body,
+      user: request.user,
       file: request.file,
     };
   }

@@ -17,7 +17,7 @@ export class ShowUserController extends BaseController {
     response.addLink({
       rel: 'users',
       action: ['DELETE', 'PUT'],
-      href: `/user/${result.id}`,
+      href: `/user`,
     });
 
     return { data: response.present, statusCode: HttpStatusCode._200_Ok };

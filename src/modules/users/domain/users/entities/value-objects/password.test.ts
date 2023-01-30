@@ -13,7 +13,7 @@ describe('Password vo unit test', () => {
     const invalidPack = [
       '',
       'nouppercase',
-      'nonumber',
+      'Nonumber',
       'nosize',
       'N0specialchar',
       'Invalid',

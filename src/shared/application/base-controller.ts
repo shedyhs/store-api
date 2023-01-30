@@ -142,7 +142,10 @@ export abstract class BaseController {
       validation.error.issues.map((issue) =>
         errors.push(`${issue.message} at ${issue.path.join('.')}`),
       );
-      return { data: errors, statusCode: HttpStatusCode._400_BadRequest };
+      return {
+        data: { errors },
+        statusCode: HttpStatusCode._400_BadRequest,
+      };
     }
     return undefined;
   }

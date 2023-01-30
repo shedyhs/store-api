@@ -25,7 +25,7 @@ export class UpdateUserController extends BaseController {
     response.addLink({
       rel: 'user',
       action: ['GET', 'DELETE'],
-      href: `/users/${id}`,
+      href: `/users`,
     });
 
     return { data: response.present, statusCode: HttpStatusCode._200_Ok };

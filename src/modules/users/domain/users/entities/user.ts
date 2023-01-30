@@ -22,6 +22,7 @@ export interface DomainUserProperties
 
 export interface UpdateUserProperties
   extends PartialObject<Omit<UserProperties, 'password'>> {
+  id: string;
   password?: string;
 }
 

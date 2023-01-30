@@ -24,11 +24,11 @@ export class CreateUserController extends BaseController {
 
     response.addLink({
       action: ['DELETE', 'GET', 'PUT'],
-      href: `{baseUrl}/users/${result.id}`,
+      href: `/users/${result.id}`,
       rel: 'user',
     });
 
-    return { data: response.present, statusCode: HttpStatusCode._200_Ok };
+    return { data: response.present, statusCode: HttpStatusCode._201_Created };
   }
 
   buildValidator(): z.AnyZodObject {
