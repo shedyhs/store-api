@@ -23,7 +23,6 @@ describe('Refresh Authentication UseCase Unit Test', () => {
   let user: User;
   let accessToken: string;
   let refreshToken: string;
-
   beforeEach(async () => {
     idGeneratorProvider = new IdGeneratorProvider();
     jwtProvider = new JwtProvider();
