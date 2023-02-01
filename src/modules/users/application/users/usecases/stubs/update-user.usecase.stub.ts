@@ -1,4 +1,4 @@
-import { MockUserDomain } from '@/modules/users/domain/mocks/user.domain.mock';
+import { mockUserDomain } from '@/modules/users/domain/mocks/user.domain.mock';
 import {
   UpdateUserProperties,
   User,
@@ -8,7 +8,7 @@ import { IUpdateUserUseCase } from '../interfaces/update-user.usecase.interface'
 
 export class StubUpdateUserUseCase implements IUpdateUserUseCase {
   async execute(_input: UpdateUserProperties): Promise<IOutputUserDTO> {
-    const user = User.fromDomain(MockUserDomain);
+    const user = User.fromDomain(mockUserDomain);
     return user.toOutput();
   }
 }

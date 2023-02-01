@@ -1,4 +1,4 @@
-import { MockUserDomain } from '@/modules/users/domain/mocks/user.domain.mock';
+import { mockUserDomain } from '@/modules/users/domain/mocks/user.domain.mock';
 import {
   DomainUserProperties,
   User,
@@ -8,7 +8,7 @@ import { ICreateUserUseCase } from '../interfaces/create-user.usecase.interface'
 
 export class StubCreateUserUseCase implements ICreateUserUseCase {
   async execute(_input: DomainUserProperties): Promise<IOutputUserDTO> {
-    const user = User.fromDomain(MockUserDomain);
+    const user = User.fromDomain(mockUserDomain);
     return user.toOutput();
   }
 }

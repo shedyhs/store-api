@@ -20,6 +20,12 @@
   "rules": {
     "import/prefer-default-export": "off",
     "no-underscore-dangle": "off",
+    "@typescript-eslint/no-empty-interface": [
+      "error",
+      {
+        "allowSingleExtends": true
+      }
+    ],
     "lines-between-class-members": "off",
     "import/no-unresolved": "off",
     "@typescript-eslint/no-namespace": "off",

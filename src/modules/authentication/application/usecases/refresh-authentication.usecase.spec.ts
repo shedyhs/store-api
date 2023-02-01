@@ -1,4 +1,4 @@
-import { MockUserDAO } from '@/modules/users/domain/mocks/user.dao.mock';
+import { mockUserDAO } from '@/modules/users/domain/mocks/user.dao.mock';
 import { User } from '@/modules/users/domain/users/entities/user';
 import { IUsersRepository } from '@/modules/users/infra/repositories/interfaces/users-repository.interface';
 import { MockUsersRepository } from '@/modules/users/infra/repositories/mock/users-repository.mock';
@@ -8,7 +8,7 @@ import { IIdGeneratorProvider } from '@/shared/infra/providers/id-generator/id-g
 import { JwtProvider } from '@/shared/infra/providers/jwt/jwt.provider';
 import { IJwtProvider } from '@/shared/infra/providers/jwt/jwt.provider.interface';
 import { beforeEach, describe, expect, it } from 'vitest';
-import { MockAuthenticationDAO } from '../../domain/mocks/authentication.dao.mock';
+import { mockAuthenticationDAO } from '../../domain/mocks/authentication.dao.mock';
 import { IAuthTokensRepository } from '../../infra/repositories/interfaces/auth-tokens-repository.interface';
 import { MockAuthTokensRepository } from '../../infra/repositories/mocks/auth-tokens.repository.mock';
 import { IRefreshAuthenticationUseCase } from './interfaces/refresh-authentication.usecase.interface';
@@ -36,11 +36,11 @@ describe('Refresh Authentication UseCase Unit Test', () => {
       usersRepository,
     );
     await authTokensRepository.createOrUpdate({
-      userId: MockAuthenticationDAO.user.id,
-      accessToken: MockAuthenticationDAO.accessToken,
-      refreshToken: MockAuthenticationDAO.refreshToken,
+      userId: mockAuthenticationDAO.user.id,
+      accessToken: mockAuthenticationDAO.accessToken,
+      refreshToken: mockAuthenticationDAO.refreshToken,
     });
-    user = User.fromDAO(MockUserDAO);
+    user = User.fromDAO(mockUserDAO);
     await usersRepository.create(user.toDAO());
     accessToken = await jwtProvider.generate({
       payload: { email: user.email },
@@ -57,7 +57,7 @@ describe('Refresh Authentication UseCase Unit Test', () => {
   it('Should be able to refresh authentication', async () => {
     const session = await sut.execute({
       accessToken,
-      refreshToken: MockAuthenticationDAO.refreshToken,
+      refreshToken: mockAuthenticationDAO.refreshToken,
     });
     expect(session).toHaveProperty('accessToken');
     expect(session).toHaveProperty('refreshToken');
@@ -72,7 +72,7 @@ describe('Refresh Authentication UseCase Unit Test', () => {
     await expect(
       sut.execute({
         accessToken: invalidAccessToken,
-        refreshToken: MockAuthenticationDAO.refreshToken,
+        refreshToken: mockAuthenticationDAO.refreshToken,
       }),
     ).rejects.toThrow(ApplicationErrors.UnauthorizedError);
   });
@@ -85,7 +85,7 @@ describe('Refresh Authentication UseCase Unit Test', () => {
     await expect(
       sut.execute({
         accessToken: invalidAccessToken,
-        refreshToken: MockAuthenticationDAO.refreshToken,
+        refreshToken: mockAuthenticationDAO.refreshToken,
       }),
     ).rejects.toThrow(ApplicationErrors.UnauthorizedError);
   });

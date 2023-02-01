@@ -1,4 +1,4 @@
-import { MockUserDAO } from '@/modules/users/domain/mocks/user.dao.mock';
+import { mockUserDAO } from '@/modules/users/domain/mocks/user.dao.mock';
 import { IUsersRepository } from '@/modules/users/infra/repositories/interfaces/users-repository.interface';
 import { MockUsersRepository } from '@/modules/users/infra/repositories/mock/users-repository.mock';
 import { ApplicationErrors } from '@/shared/errors/application-error';
@@ -31,11 +31,11 @@ describe('Create User UseCase Unit Test', () => {
   });
 
   it('should not be able to create a user with already existent email', async () => {
-    await usersRepository.create(MockUserDAO);
+    await usersRepository.create(mockUserDAO);
 
     expect(
       sut.execute({
-        email: MockUserDAO.email,
+        email: mockUserDAO.email,
         password: 'Pa$$w0rd',
         username: 'shedyhs',
       }),

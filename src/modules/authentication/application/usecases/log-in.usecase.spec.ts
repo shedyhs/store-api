@@ -1,4 +1,4 @@
-import { MockUserDomain } from '@/modules/users/domain/mocks/user.domain.mock';
+import { mockUserDomain } from '@/modules/users/domain/mocks/user.domain.mock';
 import { User } from '@/modules/users/domain/users/entities/user';
 import { MockUsersRepository } from '@/modules/users/infra/repositories/mock/users-repository.mock';
 import { ApplicationErrors } from '@/shared/errors/application-error';
@@ -31,14 +31,14 @@ describe('Log In UseCase Unit Test', () => {
       idGeneratorProvider,
     );
 
-    user = User.fromDomain(MockUserDomain);
+    user = User.fromDomain(mockUserDomain);
     await usersRepository.create(user.toDAO());
   });
 
   it('Should be able to log in', async () => {
     const session = await sut.execute({
       email: user.email,
-      password: MockUserDomain.password,
+      password: mockUserDomain.password,
     });
     expect(session).toHaveProperty('accessToken');
     expect(session).toHaveProperty('refreshToken');
@@ -59,7 +59,7 @@ describe('Log In UseCase Unit Test', () => {
     await expect(
       sut.execute({
         email: 'invalid@email.com',
-        password: MockUserDomain.password,
+        password: mockUserDomain.password,
       }),
     ).rejects.toThrow(ApplicationErrors.UnauthorizedError);
   });

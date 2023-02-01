@@ -1,7 +1,3 @@
-export interface IOutputUserDTO {
-  id: string;
-  email: string;
-  username: string;
-  createdAt: Date;
-  updatedAt: Date;
-}
+import { OutputUser } from '@/modules/users/domain/users/entities/user';
+
+export interface IOutputUserDTO extends OutputUser {}

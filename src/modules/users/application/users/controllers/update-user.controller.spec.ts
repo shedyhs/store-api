@@ -1,4 +1,4 @@
-import { MockUserDomain } from '@/modules/users/domain/mocks/user.domain.mock';
+import { mockUserDomain } from '@/modules/users/domain/mocks/user.domain.mock';
 import { describe, beforeEach, expect, it, vi } from 'vitest';
 import { IUpdateUserUseCase } from '../usecases/interfaces/update-user.usecase.interface';
 import { StubUpdateUserUseCase } from '../usecases/stubs/update-user.usecase.stub';
@@ -15,7 +15,7 @@ describe('Update User Controller Unit Test', () => {
 
   it('should return treat response', async () => {
     const response = await sut.handle({
-      body: MockUserDomain,
+      body: mockUserDomain,
       file: undefined,
       headers: undefined,
       method: 'PUT',
@@ -35,7 +35,7 @@ describe('Update User Controller Unit Test', () => {
   it('should call useCase', async () => {
     const spyUseCase = vi.spyOn(useCase, 'execute');
     await sut.handle({
-      body: MockUserDomain,
+      body: mockUserDomain,
       file: undefined,
       headers: undefined,
       method: 'PUT',

@@ -1,4 +1,3 @@
-import { IOutputUserDTO } from '@/modules/users/application/users/usecases/dtos/output-user.dto';
 import { Entity } from '@/shared/domain/entity';
 import { EntityError } from '@/shared/errors/entity-error';
 import { PartialObject } from 'lodash';
@@ -24,6 +23,14 @@ export interface UpdateUserProperties
   extends PartialObject<Omit<UserProperties, 'password'>> {
   id: string;
   password?: string;
+}
+
+export interface OutputUser {
+  id: string;
+  email: string;
+  username: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export class User extends Entity {
@@ -57,7 +64,7 @@ export class User extends Entity {
     }
   }
 
-  update(props: UpdateUserProperties) {
+  update(props: UpdateUserProperties): void {
     if (props.username) {
       this._username = props.username;
     }
@@ -70,7 +77,7 @@ export class User extends Entity {
     this._updatedAt = new Date();
   }
 
-  toOutput(): IOutputUserDTO {
+  toOutput(): OutputUser {
     return {
       id: this.id,
       email: this.email,

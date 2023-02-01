@@ -1,4 +1,4 @@
-import { MockUserDAO } from '@/modules/users/domain/mocks/user.dao.mock';
+import { mockUserDAO } from '@/modules/users/domain/mocks/user.dao.mock';
 import { IUsersRepository } from '@/modules/users/infra/repositories/interfaces/users-repository.interface';
 import { MockUsersRepository } from '@/modules/users/infra/repositories/mock/users-repository.mock';
 import { ApplicationErrors } from '@/shared/errors/application-error';
@@ -16,9 +16,9 @@ describe('Show User UseCase Unit Test', () => {
   });
 
   it('Should be able to show user', async () => {
-    await usersRepository.create(MockUserDAO);
-    const foundUser = await sut.execute({ id: MockUserDAO.id });
-    expect(foundUser).toHaveProperty('id', MockUserDAO.id);
+    await usersRepository.create(mockUserDAO);
+    const foundUser = await sut.execute({ id: mockUserDAO.id });
+    expect(foundUser).toHaveProperty('id', mockUserDAO.id);
   });
 
   it('should not be able to show a nonexistent user', async () => {

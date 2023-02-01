@@ -10,14 +10,14 @@ export class ShowUserController extends BaseController {
     super();
   }
   async perform(request: HttpRequest): Promise<HttpResponse> {
-    const { id } = request.user;
+    const { id } = request.params;
     const result = await this.showUserUseCase.execute({ id });
     const response = new ResponsePresenter(request, result);
 
     response.addLink({
       rel: 'users',
       action: ['DELETE', 'PUT'],
-      href: `/user`,
+      href: `/users`,
     });
 
     return { data: response.present, statusCode: HttpStatusCode._200_Ok };
@@ -25,7 +25,7 @@ export class ShowUserController extends BaseController {
 
   buildValidator(): AnyZodObject {
     return z.object({
-      user: z.object({
+      params: z.object({
         id: z.string(),
       }),
     });

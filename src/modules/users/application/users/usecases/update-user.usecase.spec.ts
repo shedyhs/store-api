@@ -1,4 +1,4 @@
-import { MockUserDAO } from '@/modules/users/domain/mocks/user.dao.mock';
+import { mockUserDAO } from '@/modules/users/domain/mocks/user.dao.mock';
 import { IUsersRepository } from '@/modules/users/infra/repositories/interfaces/users-repository.interface';
 import { MockUsersRepository } from '@/modules/users/infra/repositories/mock/users-repository.mock';
 import { ApplicationErrors } from '@/shared/errors/application-error';
@@ -16,25 +16,25 @@ describe('Update User UseCase Unit Test', () => {
   });
 
   it('should be able to update a user', async () => {
-    await usersRepository.create(MockUserDAO);
+    await usersRepository.create(mockUserDAO);
     const response = await sut.execute({
-      id: MockUserDAO.id,
+      id: mockUserDAO.id,
       username: 'another-username',
       email: 'another@email.com',
       password: 'NewPa$$w0rd',
     });
 
-    expect(response).toHaveProperty('id', MockUserDAO.id);
+    expect(response).toHaveProperty('id', mockUserDAO.id);
     expect(response.email).toBe('another@email.com');
     expect(response.username).toBe('another-username');
-    expect(response.createdAt.getTime()).toBe(MockUserDAO.created_at.getTime());
+    expect(response.createdAt.getTime()).toBe(mockUserDAO.created_at.getTime());
     expect(response.updatedAt.getTime()).toBeGreaterThan(
-      MockUserDAO.updated_at.getTime(),
+      mockUserDAO.updated_at.getTime(),
     );
   });
 
   it('should not be able to update a nonexistent user', async () => {
-    expect(() => sut.execute(MockUserDAO)).rejects.toThrow(
+    expect(() => sut.execute(mockUserDAO)).rejects.toThrow(
       ApplicationErrors.NotFoundError,
     );
   });

@@ -1,7 +1,7 @@
 import { EntityError } from '@/shared/errors/entity-error';
 import { describe, test, expect } from 'vitest';
-import { MockUserDAO } from '../../mocks/user.dao.mock';
-import { MockUserDomain } from '../../mocks/user.domain.mock';
+import { mockUserDAO } from '../../mocks/user.dao.mock';
+import { mockUserDomain } from '../../mocks/user.domain.mock';
 import { User } from './user';
 import { Password } from './value-objects/password.vo';
 
@@ -63,18 +63,18 @@ describe('User entity unit test', () => {
   });
 
   test('fromDAO', () => {
-    const user = User.fromDAO(MockUserDAO);
+    const user = User.fromDAO(mockUserDAO);
     expect(user).toBeInstanceOf(User);
-    expect(user.id).toBe(MockUserDAO.id);
-    expect(user.email).toBe(MockUserDAO.email);
-    expect(user.username).toBe(MockUserDAO.username);
-    expect(user.password.value).toBe(MockUserDAO.password);
-    expect(user.createdAt).toBe(MockUserDAO.created_at);
-    expect(user.updatedAt).toBe(MockUserDAO.updated_at);
+    expect(user.id).toBe(mockUserDAO.id);
+    expect(user.email).toBe(mockUserDAO.email);
+    expect(user.username).toBe(mockUserDAO.username);
+    expect(user.password.value).toBe(mockUserDAO.password);
+    expect(user.createdAt).toBe(mockUserDAO.created_at);
+    expect(user.updatedAt).toBe(mockUserDAO.updated_at);
   });
 
   test('toDAO', () => {
-    const user = User.fromDomain(MockUserDomain);
+    const user = User.fromDomain(mockUserDomain);
     const userDAO = user.toDAO();
     expect(userDAO.id).toBe(user.id);
     expect(userDAO.email).toBe(user.email);
@@ -85,7 +85,7 @@ describe('User entity unit test', () => {
   });
 
   test('toDAO', () => {
-    const user = User.fromDomain(MockUserDomain);
+    const user = User.fromDomain(mockUserDomain);
     const userOutput = user.toOutput();
     expect(userOutput.id).toBe(user.id);
     expect(userOutput.email).toBe(user.email);

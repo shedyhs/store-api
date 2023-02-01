@@ -17,11 +17,11 @@ describe('Show User Controller Unit Test', () => {
       body: undefined,
       file: undefined,
       headers: undefined,
-      method: 'GET',
-      params: undefined,
+      method: undefined,
+      params: { id: 'some-user-uuid' },
       query: undefined,
       url: 'http://localhost.com',
-      user: { id: 'some-user-uuid' },
+      user: undefined,
     });
     expect(response.statusCode).toBe(200);
     expect(response.data).toHaveProperty('_embedded');
@@ -35,11 +35,11 @@ describe('Show User Controller Unit Test', () => {
       body: undefined,
       file: undefined,
       headers: undefined,
-      method: 'GET',
-      params: undefined,
+      method: undefined,
+      params: { id: 'some-user-uuid' },
       query: undefined,
       url: 'http://localhost.com',
-      user: { id: 'some-user-uuid' },
+      user: undefined,
     });
     expect(spyUseCase).toHaveBeenCalled();
   });
@@ -50,7 +50,7 @@ describe('Show User Controller Unit Test', () => {
       body: undefined,
       file: undefined,
       headers: undefined,
-      method: 'GET',
+      method: undefined,
       params: undefined,
       query: undefined,
       url: 'http://localhost.com',

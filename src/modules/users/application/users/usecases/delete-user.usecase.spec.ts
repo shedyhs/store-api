@@ -1,4 +1,4 @@
-import { MockUserDAO } from '@/modules/users/domain/mocks/user.dao.mock';
+import { mockUserDAO } from '@/modules/users/domain/mocks/user.dao.mock';
 import { IUsersRepository } from '@/modules/users/infra/repositories/interfaces/users-repository.interface';
 import { MockUsersRepository } from '@/modules/users/infra/repositories/mock/users-repository.mock';
 import { ApplicationErrors } from '@/shared/errors/application-error';
@@ -16,8 +16,8 @@ describe('Delete User UseCase Unit Test', () => {
   });
 
   it('should delete existent user', async () => {
-    await usersRepository.create(MockUserDAO);
-    const response = await sut.execute({ id: MockUserDAO.id });
+    await usersRepository.create(mockUserDAO);
+    const response = await sut.execute({ id: mockUserDAO.id });
     expect(response).toBeUndefined();
   });
 
