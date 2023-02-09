@@ -477,6 +477,11 @@
     picocolors "^1.0.0"
     pretty-format "^27.5.1"
 
+"@zod-plugins/numeric@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@zod-plugins/numeric/-/numeric-0.0.1.tgz#40444f86f27d0c3bb7bce0877220d71ef347e30c"
+  integrity sha512-PBErspEkph/ZOoaGyQF+MGnDHl6v5F5aXwWwR7dnc4ByYtmRGpBiAh9sxTOiOz0Myop2m0YBVoAFhLt62tJlDQ==
+
 acorn-jsx@^5.3.2:
   version "5.3.2"
   resolved "https://registry.yarnpkg.com/acorn-jsx/-/acorn-jsx-5.3.2.tgz#7ed5bb55908b3b2f1bc55c6af1653bada7f07937"

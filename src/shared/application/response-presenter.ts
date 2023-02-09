@@ -1,4 +1,6 @@
+import { ApplicationErrors } from '../errors/application-error';
 import { HttpRequest } from '../interfaces/http';
+import { IPaginateResponse } from '../interfaces/pagination.interface';
 
 type ActionsType = 'POST' | 'PUT' | 'GET' | 'PATCH' | 'DELETE';
 
@@ -10,9 +12,10 @@ type LinkType = {
 
 export class ResponsePresenter {
   private received: object;
-  private embedded: object;
+  private embedded: any;
   private links: LinkType[];
   private _baseUrl: string;
+
   constructor(request: HttpRequest, response: object) {
     this.embedded = response;
     this.links = [];

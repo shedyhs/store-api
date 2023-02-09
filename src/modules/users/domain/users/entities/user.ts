@@ -21,7 +21,6 @@ export interface DomainUserProperties
 
 export interface UpdateUserProperties
   extends PartialObject<Omit<UserProperties, 'password'>> {
-  id: string;
   password?: string;
 }
 
@@ -75,6 +74,7 @@ export class User extends Entity {
       this._password = new Password(props.password);
     }
     this._updatedAt = new Date();
+    this.validate();
   }
 
   toOutput(): OutputUser {

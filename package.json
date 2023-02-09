@@ -34,6 +34,7 @@
     "vitest": "^0.28.2"
   },
   "dependencies": {
+    "@zod-plugins/numeric": "^0.0.1",
     "bcryptjs": "^2.4.3",
     "dotenv": "^16.0.3",
     "jsonwebtoken": "^9.0.0",

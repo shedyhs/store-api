@@ -21,7 +21,7 @@ export class RefreshAuthenticationUseCase
   async execute(
     input: IRefreshAuthenticationDTO,
   ): Promise<IOutputAuthenticationDTO> {
-    const { sub: userId } = await this.jwtProvider.decode(input.accessToken);
+    const { sub: userId } = await this.jwtProvider.verify(input.accessToken);
     if (!userId) {
       throw new ApplicationErrors.UnauthorizedError('Invalid access token');
     }
